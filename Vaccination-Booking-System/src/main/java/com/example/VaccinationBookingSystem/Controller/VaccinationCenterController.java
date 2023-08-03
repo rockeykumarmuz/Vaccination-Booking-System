@@ -1,6 +1,7 @@
 package com.example.VaccinationBookingSystem.Controller;
 
 import com.example.VaccinationBookingSystem.Dto.VaccinationCenterRequestDto;
+import com.example.VaccinationBookingSystem.Enum.CenterType;
 import com.example.VaccinationBookingSystem.ResponseDto.VaccinationCenterResponseDto;
 import com.example.VaccinationBookingSystem.Service.VaccinationCenterService;
 import jakarta.persistence.Entity;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/center")

@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.Doc;
 import java.util.List;
 
 @RestController
@@ -39,6 +40,13 @@ public class DoctorController {
         } catch(Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/getDoctorsWithHighestAppointment")
+    public ResponseEntity getDoctorWithHighestNumberOfAppointments() {
+
+        List<String> doctor = doctoreService.getDoctorWithHighestNumberOfAppointments();
+        return new ResponseEntity(doctor, HttpStatus.ACCEPTED);
     }
 
 }

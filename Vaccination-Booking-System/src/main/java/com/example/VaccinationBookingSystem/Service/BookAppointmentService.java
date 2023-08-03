@@ -84,7 +84,6 @@ public class BookAppointmentService {
 
         javaMailSender.send(simpleMailMessage);
 
-
         //  setting response in dto
         BookAppointmentResponseDto bookAppointmentResponseDto=new BookAppointmentResponseDto();
         bookAppointmentResponseDto.setPersonName(savedPerson.getName());

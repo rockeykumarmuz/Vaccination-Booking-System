@@ -15,12 +15,23 @@ import com.example.VaccinationBookingSystem.ResponseDto.VaccinationCenterRespons
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.PriorityQueue;
 
 @Service
 public class DoctoreService {
+    class Pair{
+        Doctor doctor;
+        int size;
+
+        Pair(Doctor doctor, int size) {
+            this.doctor = doctor;
+            this.size = size;
+        }
+    }
 
     @Autowired
     DoctorRepositry doctorRepositry;
@@ -93,5 +104,36 @@ public class DoctoreService {
         doctorResponse.setDoctors(al);
 
         return doctorResponse;
+    }
+
+    public List<String> getDoctorWithHighestNumberOfAppointments() {
+
+        List<Doctor> doctorList = doctorRepositry.findAll();
+
+        PriorityQueue<Pair> pq= new PriorityQueue<>((a, b)->{
+            return b.size - a.size;
+        });
+
+        for(Doctor doctor: doctorList) {
+            pq.add(new Pair(doctor, doctor.getAppointments().size()));
+        }
+
+        List<String > al= new ArrayList<>();
+        int size = 0;
+
+        if(pq.size()!=0) {
+            Pair curr = pq.remove();
+            size = curr.size;
+            al.add(curr.doctor.getName());
+        }
+
+        while(pq.size()!=0 && pq.peek().size>=size) {
+            Pair nn = pq.remove();
+            size= nn.size;
+            al.add(nn.doctor.getName());
+        }
+
+        return al;
+
     }
 }
